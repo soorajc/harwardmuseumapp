@@ -149,6 +149,13 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            v2SigningEnabled false
+        }
     }
     buildTypes {
         debug {
@@ -157,7 +164,7 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -179,6 +186,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
@@ -199,3 +207,24 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+
+def getStore = { ->
+    def result = project.hasProperty('storeFile') ? storeFile : "null"
+    return result
+}
+
+def getStorePassword = { ->
+    def result = project.hasProperty('storePassword') ? storePassword : ""
+    return result
+}
+
+def getKeyAlias = { ->
+    def result = project.hasProperty('keyAlias') ? keyAlias : ""
+    return result
+}
+
+def getKeyPassword = { ->
+    def result = project.hasProperty('keyPassword') ? keyPassword : ""
+    return result
+}
