@@ -26,22 +26,28 @@ import Swiper from 'react-native-swiper';
 
 const ObjectList = props => {
   const [objectDetails, setObjectDetails] = useState([]);
+  const [page, setPage] = useState(1);
   const objectData = props.route.params.data;
 
   useEffect(() => {
-    loadData();
+    const objectId = objectData.id;
+    const url = OBJECT_DETAILS_URL + objectId;
+    loadData(url, 'initial');
   }, []);
 
-  const loadData = () => {
-    const objectId = objectData.id;
-    apiCallHandler('GET', OBJECT_DETAILS_URL + objectId)
-      .then(data => dataHandler(data))
+  const loadData = (url, type) => {
+    apiCallHandler('GET', url)
+      .then(data => dataHandler(data, type))
       .catch(console.log('error'));
   };
 
-  const dataHandler = data => {
+  const dataHandler = (data, type) => {
     if (data && data.records && data.records.length > 0) {
-      setObjectDetails(data.records);
+      if (type === 'initial') {
+        setObjectDetails(data.records);
+      } else {
+        setObjectDetails(data.records);
+      }
     }
   };
 
@@ -84,9 +90,19 @@ const ObjectList = props => {
     props.navigation.navigate('ObjectDetails', {data: item});
   };
 
+  const handlePagination = index => {
+    if (index === objectDetails.length - 2) {
+      const objectId = objectData.id;
+      const currentPage = page + 1;
+      setPage(currentPage);
+      const url = OBJECT_DETAILS_URL + objectId + '&page=' + currentPage;
+      loadData(url, '');
+    }
+  };
+
   const _renderItem = item => {
     return (
-      <View style={Styles.slide}>
+      <View style={Styles.slide} key={item.id.toString()}>
         <View style={Styles.imageContainer}>
           <Image
             source={{
@@ -146,6 +162,7 @@ const ObjectList = props => {
             style={Styles.wrapper}
             showsButtons={false}
             buttonWrapperStyle={Styles.buttonWrapperStyle}
+            onIndexChanged={handlePagination}
             showsPagination={false}>
             {objectDetails.map(item => _renderItem(item))}
           </Swiper>
