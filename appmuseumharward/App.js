@@ -11,6 +11,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import TabBar from './src/navigation/tab';
 import ObjectList from './src/screens/Object';
+import ObjectDetails from './src/screens/ObjectDetails';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,11 @@ const StackConfig = () => {
       <Stack.Screen
         name="ObjectList"
         component={ObjectList}
+        options={{headerTitle: null}}
+      />
+      <Stack.Screen
+        name="ObjectDetails"
+        component={ObjectDetails}
         options={{headerTitle: null}}
       />
     </Stack.Navigator>

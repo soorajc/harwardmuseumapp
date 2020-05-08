@@ -33,15 +33,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Black',
     textAlign: 'center',
     marginTop: height * 0.02,
-    marginBottom: height * 0.04,
+    marginBottom: height * 0.01,
     width: '90%',
     alignSelf: 'center',
+  },
+  subTitle: {
+    color: '#353B48',
+    fontFamily: 'Montserrat-Regular',
+    textAlign: 'center',
+    fontSize: height * 0.02,
+    marginBottom: height * 0.03,
   },
   content: {
     flex: 0.9,
   },
   slide: {
     height: height * 0.7,
+    width: '90%',
+    alignSelf: 'center',
   },
   slideTitle: {
     color: 'white',
@@ -116,6 +125,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  buttonWrapperStyle: {
+    position: 'absolute',
+    marginTop: -height * 0.08,
+  },
+  arrow: {
+    fontSize: height * 0.12,
+    fontFamily: 'Montserrat-Regular',
   },
 });
 

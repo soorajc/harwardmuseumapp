@@ -11,20 +11,18 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Dimensions,
   Share,
   ActivityIndicator,
-  Image,
   NativeModules,
   PermissionsAndroid,
+  Linking,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import Image from 'react-native-image-progress';
 import {apiCallHandler} from '../../api/api';
-import {OBJECT_DETAILS_URL} from '../../config/apiconfig';
+import {OBJECT_DETAILS_URL, PDF_API_KEY} from '../../config/apiconfig';
 import Styles from './Styles';
-import Carousel from 'react-native-snap-carousel';
-
-const {width} = Dimensions.get('window');
+import Swiper from 'react-native-swiper';
 
 const ObjectList = props => {
   const [objectDetails, setObjectDetails] = useState([]);
@@ -82,7 +80,11 @@ const ObjectList = props => {
     }
   };
 
-  const _renderItem = ({item, index}) => {
+  const showDetails = item => {
+    props.navigation.navigate('ObjectDetails', {data: item});
+  };
+
+  const _renderItem = item => {
     return (
       <View style={Styles.slide}>
         <View style={Styles.imageContainer}>
@@ -90,7 +92,7 @@ const ObjectList = props => {
             source={{
               uri: item.primaryimageurl
                 ? item.primaryimageurl
-                : 'https://wiki.tripwireinteractive.com/images/4/47/Placeholder.png',
+                : 'https://www.harvardartmuseums.org/assets/images/no_image_thumb.png',
             }}
             style={Styles.itemImage}
           />
@@ -101,7 +103,9 @@ const ObjectList = props => {
           </Text>
         </View>
         <View style={Styles.buttonContainer}>
-          <TouchableOpacity style={Styles.eyeButton}>
+          <TouchableOpacity
+            onPress={() => showDetails(item)}
+            style={Styles.eyeButton}>
             <Icon name="eye" size={25} />
           </TouchableOpacity>
           <TouchableOpacity
@@ -137,13 +141,14 @@ const ObjectList = props => {
         </View>
         <View style={Styles.content}>
           <Text style={Styles.title}>{objectData.name}</Text>
-          <Carousel
-            data={objectDetails}
-            renderItem={_renderItem}
-            sliderWidth={width}
-            itemWidth={width * 0.8}
-            layout="tinder"
-          />
+          <Text style={Styles.subTitle}>Swipe to explore the collections</Text>
+          <Swiper
+            style={Styles.wrapper}
+            showsButtons={false}
+            buttonWrapperStyle={Styles.buttonWrapperStyle}
+            showsPagination={false}>
+            {objectDetails.map(item => _renderItem(item))}
+          </Swiper>
         </View>
       </View>
     );

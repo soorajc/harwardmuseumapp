@@ -56,20 +56,20 @@ public class MusicPlayerModule extends ReactContextBaseJavaModule {
                     DownloadManager.Request.NETWORK_MOBILE);
 
             request.setTitle("Download Collection Harward");
-            request.setDescription("Collection image  downloading.");
+            request.setDescription("Collection file  downloading.");
 
             request.allowScanningByMediaScanner();
             request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
 //set the local destination for download file to a path within the application's external files directory
-            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES,name+".jpg");
-            request.setMimeType("image/*");
+            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_PICTURES,name+".jpeg");
+            request.setMimeType("image/jpeg");
             downloadManager.enqueue(request);
-            Toast.makeText(getReactApplicationContext(), "Saving image to gallery", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getReactApplicationContext(), "Saving image to device", Toast.LENGTH_SHORT).show();
 
         } catch(Exception e) {
             Toast.makeText(getReactApplicationContext(), "Unable to download image. Try Again", Toast.LENGTH_SHORT).show();
-            System.out.println("Error in downloading image");
+            System.out.println("Error in downloading file");
             System.out.println(e.toString());
         }
     }

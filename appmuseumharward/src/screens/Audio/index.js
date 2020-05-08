@@ -5,7 +5,7 @@ import {
   View,
   FlatList,
   TouchableOpacity,
-  Linking,
+  ActivityIndicator,
   NativeModules,
 } from 'react-native';
 import {apiCallHandler} from '../../api/api';
@@ -37,26 +37,32 @@ const Audio = () => {
   };
 
   return (
-    <View>
-      <FlatList
-        data={audios}
-        renderItem={({item, index}) => (
-          <TouchableOpacity
-            onPress={() => handleAudio(item.primaryurl)}
-            style={Styles.videoCard}>
-            <Icon
-              size={30}
-              color="#0d47a1"
-              name="play-circle"
-              style={Styles.icon}
-            />
-            <Text style={Styles.videoTitle} numberOfLines={2}>
-              {item.description}
-            </Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={item => item.id}
-      />
+    <View style={Styles.container}>
+      {audios.length === 0 ? (
+        <View style={Styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#353B48" />
+        </View>
+      ) : (
+        <FlatList
+          data={audios}
+          renderItem={({item, index}) => (
+            <TouchableOpacity
+              onPress={() => handleAudio(item.primaryurl)}
+              style={Styles.videoCard}>
+              <Icon
+                size={30}
+                color="#0d47a1"
+                name="play-circle"
+                style={Styles.icon}
+              />
+              <Text style={Styles.videoTitle} numberOfLines={2}>
+                {item.description}
+              </Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item.id.toString()}
+        />
+      )}
     </View>
   );
 };

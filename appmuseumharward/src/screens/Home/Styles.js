@@ -8,18 +8,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    backgroundColor: '#353B48',
+    backgroundColor: 'white',
     flex: 0.1,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.53,
+    shadowRadius: 13.97,
+    elevation: 10,
   },
   title: {
-    color: 'white',
+    color: '#353B48',
     fontSize: height * 0.04,
     fontFamily: 'Montserrat-Black',
   },
   content: {
     flex: 0.9,
+    backgroundColor: 'white',
   },
   footer: {
     flex: 0.1,
@@ -86,6 +95,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Black',
     fontSize: height * 0.014,
     color: 'white',
+  },
+  loaderContainer: {
+    flex: 0.9,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
 });
 

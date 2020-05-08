@@ -3,6 +3,9 @@ import {StyleSheet, Dimensions} from 'react-native';
 const {height, width} = Dimensions.get('window');
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   videoCard: {
     backgroundColor: 'white',
     height: height * 0.2,
@@ -27,6 +30,11 @@ const styles = StyleSheet.create({
     width: '80%',
     alignSelf: 'center',
     marginTop: '8%',
+  },
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

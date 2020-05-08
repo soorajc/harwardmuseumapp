@@ -8,10 +8,13 @@ export const OBJECT_DETAILS_URL =
   BASE_URL +
   '/object' +
   API_KEY +
-  '&size=40&sort=name&sortorder=asc&hasimage=1&classification=';
+  '&size=20&sort=name&sortorder=asc&classification=';
 
 export const VIDEO_URL =
   BASE_URL + '/video' + API_KEY + '&size=100&sort=name&sortorder=asc';
 
 export const AUDIO_URL =
   BASE_URL + '/audio' + API_KEY + '&size=100&sort=name&sortorder=asc';
+
+export const PDF_API_KEY =
+  '416ac1470ce061c67083273127b52b22d9812c0c2427ab77829279582a83b591';

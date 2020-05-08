@@ -7,7 +7,13 @@
  */
 
 import React, {useState, useEffect} from 'react';
-import {View, Text, FlatList, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import {apiCallHandler} from '../../api/api';
 import {CLASSIFICATION_URL} from '../../config/apiconfig';
@@ -37,32 +43,42 @@ const Home = props => {
     props.navigation.navigate('ObjectList', {data: data});
   };
 
+  const renderCard = item => {
+    return (
+      <View style={Styles.card}>
+        <TouchableOpacity
+          style={Styles.button}
+          onPress={() => showObjectCollection(item)}>
+          <View style={Styles.nameContainer}>
+            <Text style={Styles.label}>{item.name}</Text>
+          </View>
+          <View style={Styles.countView}>
+            <Text style={Styles.countLabel}>{item.objectcount}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
     <View style={Styles.container}>
       <View style={Styles.header}>
         <Text style={Styles.title}>Harward Art Museum</Text>
       </View>
-      <View style={Styles.content}>
-        <FlatList
-          data={classifications}
-          numColumns={2}
-          renderItem={({item, index}) => (
-            <View style={Styles.card}>
-              <TouchableOpacity
-                style={Styles.button}
-                onPress={() => showObjectCollection(item)}>
-                <View style={Styles.nameContainer}>
-                  <Text style={Styles.label}>{item.name}</Text>
-                </View>
-                <View style={Styles.countView}>
-                  <Text style={Styles.countLabel}>{item.objectcount}</Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
-          keyExtractor={item => item.id}
-        />
-      </View>
+      {classifications.length === 0 ? (
+        <View style={Styles.loaderContainer}>
+          <ActivityIndicator size="large" color="#353B48" />
+        </View>
+      ) : (
+        <View style={Styles.content}>
+          <FlatList
+            data={classifications}
+            numColumns={2}
+            renderItem={({item, index}) => renderCard(item)}
+            keyExtractor={item => item.id}
+          />
+        </View>
+      )}
     </View>
   );
 };
