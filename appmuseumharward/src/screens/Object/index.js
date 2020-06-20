@@ -16,6 +16,7 @@ import {
   NativeModules,
   PermissionsAndroid,
   Linking,
+  FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Image from 'react-native-image-progress';
@@ -27,7 +28,9 @@ import Swiper from 'react-native-swiper';
 const ObjectList = props => {
   const [objectDetails, setObjectDetails] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
   const objectData = props.route.params.data;
+  const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
     const objectId = objectData.id;
@@ -42,11 +45,15 @@ const ObjectList = props => {
   };
 
   const dataHandler = (data, type) => {
+    setLoading(false);
     if (data && data.records && data.records.length > 0) {
       if (type === 'initial') {
         setObjectDetails(data.records);
+        setTotalCount(data.info.pages);
       } else {
-        setObjectDetails(data.records);
+        const currentData = [...objectDetails, ...data.records];
+        setObjectDetails(currentData);
+        setLoading(false);
       }
     }
   };
@@ -79,7 +86,7 @@ const ObjectList = props => {
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         handleDownLoad(url, name);
       } else {
-        console.log('Camera permission denied');
+        console.log('saving permission denied');
       }
     } catch (err) {
       console.warn(err);
@@ -90,17 +97,18 @@ const ObjectList = props => {
     props.navigation.navigate('ObjectDetails', {data: item});
   };
 
-  const handlePagination = index => {
-    if (index === objectDetails.length - 2) {
-      const objectId = objectData.id;
-      const currentPage = page + 1;
-      setPage(currentPage);
-      const url = OBJECT_DETAILS_URL + objectId + '&page=' + currentPage;
+  const handlePagination = () => {
+    const objectId = objectData.id;
+    const currentPage = page + 1;
+    setPage(currentPage);
+    const url = OBJECT_DETAILS_URL + objectId + '&page=' + currentPage;
+    if (page <= totalCount) {
+      setLoading(true);
       loadData(url, '');
     }
   };
 
-  const _renderItem = item => {
+  const _renderItem = ({item, index}) => {
     return (
       <View style={Styles.slide} key={item.id.toString()}>
         <View style={Styles.imageContainer}>
@@ -122,7 +130,7 @@ const ObjectList = props => {
           <TouchableOpacity
             onPress={() => showDetails(item)}
             style={Styles.eyeButton}>
-            <Icon name="eye" size={25} />
+            <Icon name="eye" size={25} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
@@ -132,16 +140,32 @@ const ObjectList = props => {
               )
             }
             style={Styles.eyeButton}>
-            <Icon name="download" size={25} />
+            <Icon name="download" size={25} color="white" />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => shareLink(item.url)}
             style={Styles.shareButton}>
-            <Icon name="share-alt" size={25} />
+            <Icon name="share-alt" size={25} color="white" />
           </TouchableOpacity>
         </View>
       </View>
     );
+  };
+
+  const updateData = () => {
+    handlePagination();
+  };
+
+  const listFooter = () => {
+    if (loading) {
+      return (
+        <View style={Styles.listFooter}>
+          <ActivityIndicator color="#353B48" size="large" />
+        </View>
+      );
+    } else {
+      return <View />;
+    }
   };
 
   if (objectDetails.length > 0) {
@@ -158,14 +182,19 @@ const ObjectList = props => {
         <View style={Styles.content}>
           <Text style={Styles.title}>{objectData.name}</Text>
           <Text style={Styles.subTitle}>Swipe to explore the collections</Text>
-          <Swiper
-            style={Styles.wrapper}
-            showsButtons={false}
-            buttonWrapperStyle={Styles.buttonWrapperStyle}
-            onIndexChanged={handlePagination}
-            showsPagination={false}>
-            {objectDetails.map(item => _renderItem(item))}
-          </Swiper>
+          <FlatList
+            data={objectDetails}
+            showsHorizontalScrollIndicator={false}
+            renderItem={(item, index) => _renderItem(item, index)}
+            keyExtractor={item => item.id.toString()}
+            extraData={objectDetails}
+            horizontal
+            pagingEnabled={true}
+            style={Styles.list}
+            onEndReached={updateData}
+            ListFooterComponent={listFooter}
+            showsVerticalScrollIndicator={false}
+          />
         </View>
       </View>
     );

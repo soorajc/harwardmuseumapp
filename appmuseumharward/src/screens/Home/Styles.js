@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#353B48',
-    fontSize: height * 0.04,
+    fontSize: height * 0.035,
     fontFamily: 'Montserrat-Black',
   },
   content: {
@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   countView: {
-    height: 40,
-    width: 40,
-    borderRadius: 20,
-    backgroundColor: '#F05F3E',
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    backgroundColor: '#69f0ae',
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',

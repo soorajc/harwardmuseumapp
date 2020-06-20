@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeScreen from '../screens/Home';
 import AudioScreen from '../screens/Audio';
 import VideoScreen from '../screens/Video';
+import InfoScreen from '../screens/Info';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,8 +19,10 @@ export default function TabBar() {
             iconName = 'home';
           } else if (route.name === 'Audio') {
             iconName = 'headphones';
-          } else {
+          } else if (route.name === 'Video') {
             iconName = 'vimeo';
+          } else {
+            iconName = 'info';
           }
 
           // You can return any component that you like here!
@@ -33,6 +36,7 @@ export default function TabBar() {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Audio" component={AudioScreen} />
       <Tab.Screen name="Video" component={VideoScreen} />
+      <Tab.Screen name="Info" component={InfoScreen} />
     </Tab.Navigator>
   );
 }

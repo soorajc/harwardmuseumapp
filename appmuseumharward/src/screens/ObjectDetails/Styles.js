@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     fontSize: height * 0.02,
     color: '#20232A',
-    alignSelf: 'center',
     width: '90%',
     textAlign: 'justify',
   },
@@ -70,10 +69,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: height * 0.05,
+    marginTop: 0.05 * height,
   },
   downloadLabel: {
     fontFamily: 'Montserrat-Regular',
     color: 'white',
+  },
+  row: {
+    width: width,
+    paddingLeft: '5%',
+    paddingTop: '5%',
+    paddingBottom: '5%',
+    borderBottomWidth: 1,
+    borderColor: '#ededed',
+  },
+  labelTitle: {
+    fontFamily: 'Montserrat-Black',
+    color: '#558b2f',
+  },
+  labelValue: {
+    fontFamily: 'Montserrat-Regular',
+    color: 'black',
+    marginTop: '2%',
   },
 });
 

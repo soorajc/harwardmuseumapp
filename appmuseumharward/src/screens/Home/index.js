@@ -53,7 +53,7 @@ const Home = props => {
             <Text style={Styles.label}>{item.name}</Text>
           </View>
           <View style={Styles.countView}>
-            <Text style={Styles.countLabel}>{item.objectcount}</Text>
+            {/* <Text style={Styles.countLabel}>{item.objectcount}</Text> */}
           </View>
         </TouchableOpacity>
       </View>
@@ -63,7 +63,7 @@ const Home = props => {
   return (
     <View style={Styles.container}>
       <View style={Styles.header}>
-        <Text style={Styles.title}>Harward Art Museum</Text>
+        <Text style={Styles.title}>Explore Collections</Text>
       </View>
       {classifications.length === 0 ? (
         <View style={Styles.loaderContainer}>

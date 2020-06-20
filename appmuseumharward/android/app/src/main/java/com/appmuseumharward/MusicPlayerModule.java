@@ -12,6 +12,7 @@ import android.content.Context;
 import android.app.DownloadManager;
 import android.os.Environment;
 import android.widget.Toast;
+import com.facebook.react.bridge.Callback;
 
 public class MusicPlayerModule extends ReactContextBaseJavaModule {
     private Context context;
@@ -28,7 +29,8 @@ public class MusicPlayerModule extends ReactContextBaseJavaModule {
     }
     //Custom function that we are going to export to JS
     @ReactMethod
-    public void showToast(String url) {
+    public void showToast(String url, Callback successCallback, Callback errorCallback
+                          ) {
         try {
 //        MediaPlayer player = new MediaPlayer();
 //        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -37,11 +39,14 @@ public class MusicPlayerModule extends ReactContextBaseJavaModule {
 //        player.start();
             String videoUrl = url;
             Intent playVideo = new Intent(Intent.ACTION_VIEW);
-            playVideo.setDataAndType(Uri.parse(videoUrl), "audio/*");
+            playVideo.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            playVideo.setDataAndType(Uri.parse(videoUrl), "audio/mp3");
             context.startActivity(playVideo);
+            successCallback.invoke("success");
     } catch(Exception e) {
+            errorCallback.invoke(url, e.toString());
             System.out.println("I am error 889");
-        System.out.println(e.toString());
+            System.out.println(e.toString());
     }
     }
 

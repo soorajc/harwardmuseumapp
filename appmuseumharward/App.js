@@ -12,12 +12,18 @@ import {NavigationContainer} from '@react-navigation/native';
 import TabBar from './src/navigation/tab';
 import ObjectList from './src/screens/Object';
 import ObjectDetails from './src/screens/ObjectDetails';
+import SplashScreen from './src/screens/Splash';
 
 const Stack = createStackNavigator();
 
 const StackConfig = () => {
   return (
     <Stack.Navigator initialRouteName="Feed" headerMode="none">
+      <Stack.Screen
+        name="Splash"
+        component={SplashScreen}
+        options={{headerTitle: null}}
+      />
       <Stack.Screen
         name="Home"
         component={TabBar}

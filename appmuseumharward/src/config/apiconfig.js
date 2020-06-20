@@ -8,7 +8,7 @@ export const OBJECT_DETAILS_URL =
   BASE_URL +
   '/object' +
   API_KEY +
-  '&size=20&sort=name&sortorder=asc&classification=';
+  '&size=10&sort=name&sortorder=asc&classification=';
 
 export const VIDEO_URL =
   BASE_URL + '/video' + API_KEY + '&size=100&sort=name&sortorder=asc';

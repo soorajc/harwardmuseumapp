@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   NativeModules,
+  Linking,
 } from 'react-native';
 import {apiCallHandler} from '../../api/api';
 import {AUDIO_URL} from '../../config/apiconfig';
@@ -23,7 +24,6 @@ const Audio = () => {
     if (data && data.records && data.records.length > 0) {
       setAudios(data.records);
     }
-    console.log('i AM THE DATA--->called');
   };
 
   const loadData = () => {
@@ -33,7 +33,21 @@ const Audio = () => {
   };
 
   const handleAudio = url => {
-    NativeModules.MusicPlayerModule.showToast(url);
+    try {
+      NativeModules.MusicPlayerModule.showToast(
+        url,
+        successCallBack,
+        errorCallBack,
+      );
+    } catch (error) {
+      console.log('Error while playing audio--->');
+    }
+  };
+
+  const successCallBack = () => {};
+
+  const errorCallBack = (url, error) => {
+    Linking.openURL(url);
   };
 
   return (

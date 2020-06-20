@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   },
   slide: {
     height: height * 0.7,
-    width: '90%',
+    width: width,
     alignSelf: 'center',
   },
   slideTitle: {
@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
     fontSize: height * 0.02,
   },
   imageContainer: {
-    width: '100%',
+    alignSelf: 'center',
+    width: '90%',
     height: '70%',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
@@ -78,23 +79,27 @@ const styles = StyleSheet.create({
   footerContainer: {
     backgroundColor: '#f44336',
     height: '15%',
+    alignSelf: 'center',
+    width: '90%',
     justifyContent: 'center',
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
   },
   buttonContainer: {
+    alignSelf: 'center',
+    width: '90%',
     height: '15%',
     //backgroundColor: '#f05f3e',
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingTop: height * 0.05,
+    paddingTop: height * 0.01,
   },
   shareButton: {
     height: 40,
-    width: 40,
-    borderRadius: 20,
-    backgroundColor: 'white',
+    width: '30%',
+    borderRadius: 2,
+    backgroundColor: '#bdbdbd',
     alignItems: 'center',
     justifyContent: 'center',
     shadowOffset: {
@@ -107,10 +112,10 @@ const styles = StyleSheet.create({
   },
   eyeButton: {
     height: 40,
-    width: 40,
-    borderRadius: 20,
+    width: '30%',
+    borderRadius: 2,
     marginRight: '5%',
-    backgroundColor: 'white',
+    backgroundColor: '#bdbdbd',
     alignItems: 'center',
     justifyContent: 'center',
     shadowOffset: {
@@ -133,6 +138,15 @@ const styles = StyleSheet.create({
   arrow: {
     fontSize: height * 0.12,
     fontFamily: 'Montserrat-Regular',
+  },
+  list: {
+    width: width,
+  },
+  listFooter: {
+    height: height * 0.7,
+    width: width,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

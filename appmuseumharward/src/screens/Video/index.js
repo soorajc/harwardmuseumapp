@@ -23,7 +23,6 @@ const Video = () => {
     if (data && data.records && data.records.length > 0) {
       setVideos(data.records);
     }
-    console.log('i AM THE DATA--->called');
   };
 
   const loadData = () => {

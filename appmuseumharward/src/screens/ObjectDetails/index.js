@@ -40,12 +40,47 @@ const ObjectDetails = props => {
             />
           </View>
           <Text style={Styles.title}>{details.title}</Text>
-          <Text style={Styles.description}>{details.description}</Text>
+          <View style={Styles.row}>
+            <Text style={Styles.labelTitle}>Culture</Text>
+            <Text style={Styles.labelValue}>
+              {details.culture ? details.culture : 'Not Available'}
+            </Text>
+          </View>
+          <View style={Styles.row}>
+            <Text style={Styles.labelTitle}>Century</Text>
+            <Text style={Styles.labelValue}>
+              {details.century ? details.century : 'Not Available'}
+            </Text>
+          </View>
+          <View style={Styles.row}>
+            <Text style={Styles.labelTitle}>Technique</Text>
+            <Text style={Styles.labelValue}>
+              {details.technique ? details.technique : 'Not Available'}
+            </Text>
+          </View>
+          <View style={Styles.row}>
+            <Text style={Styles.labelTitle}>Medium</Text>
+            <Text style={Styles.labelValue}>
+              {details.medium ? details.medium : 'Not Available'}
+            </Text>
+          </View>
+          <View style={Styles.row}>
+            <Text style={Styles.labelTitle}>Accession Year</Text>
+            <Text style={Styles.labelValue}>
+              {details.accessionyear ? details.accessionyear : 'Not Available'}
+            </Text>
+          </View>
+          {details.description && (
+            <View style={Styles.row}>
+              <Text style={Styles.labelTitle}>Description</Text>
+              <Text style={Styles.description}>{details.description}</Text>
+            </View>
+          )}
           <TouchableOpacity
             onPress={() => handlePdfDownLoad(details.url)}
             style={Styles.downloadButton}>
             <Text style={Styles.downloadLabel}>
-              Download full details as Pdf
+              Download full details as PDF
             </Text>
           </TouchableOpacity>
         </ScrollView>
